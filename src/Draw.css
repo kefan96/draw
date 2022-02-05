@@ -1,0 +1,53 @@
+.rates {
+  padding: 10px 50px;
+  border: 1px solid #555;
+  border-radius: 10px;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+#excel {
+  display: none;
+}
+
+.btn {
+  cursor: pointer;
+  background-color: steelblue;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+}
+
+input[type="number"] {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.Draw {
+  display: flex;
+}
+
+.form {
+  width: 30%;
+  padding: 50px;
+}
+
+.result {
+  width: 70%;
+}
+
+table {
+  width: 80%;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
