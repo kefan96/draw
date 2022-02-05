@@ -35,6 +35,8 @@ const Draw = () => {
         setNames(data);
         draw(workbook, data);
 
+        file.target.value = "";
+
         console.log(data);
       } catch (e) {
         // 这里可以抛出文件类型错误不正确的相关提示
@@ -49,6 +51,7 @@ const Draw = () => {
   function shuffleSwap(arr) {
     if (arr.length === 1) return arr;
     let i = arr.length;
+    if (arr.length === 2) return Math.random() > 0.5 ? arr : [arr[1], arr[0]];
     while (--i > 1) {
       let j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
