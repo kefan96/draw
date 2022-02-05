@@ -72,7 +72,7 @@ const Draw = () => {
   }
 
   const draw = (wb, arr) => {
-    arr = arr.filter((entry) => !entry["备注"]);
+    arr = arr.filter((entry) => !entry["备注"] && entry["姓名"] !== "叶哲廷");
     const ddzg = arr.filter((entry) => entry["类别"] === "大队主官");
     const ddfzg = arr.filter((entry) => entry["类别"] === "大队非主官");
     const zhy = arr.filter((entry) => entry["类别"] === "消防救援站指挥员");
