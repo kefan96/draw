@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 50px;
+  color: white;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+nav {
+  background-color: steelblue;
+  padding: 20px 0;
+  margin-bottom: 50px;
+}

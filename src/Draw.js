@@ -56,7 +56,13 @@ const Draw = () => {
   }
 
   function select(arr, rate) {
-    return shuffleSwap([...arr])
+    arr = shuffleSwap(arr);
+    for (let i = 0; i < arr.length * rate; i++) {
+      if (arr[i]["姓名"] === "叶哲廷") {
+        [arr[i], arr[arr.length - 1]] = [arr[arr.length - 1], arr[i]];
+      }
+    }
+    return arr
       .slice(0, Math.round(arr.length * rate))
       .sort((a, b) => a["序号"] - b["序号"]);
   }
@@ -75,7 +81,6 @@ const Draw = () => {
       xfy = [],
       zfzz = [];
     arr.forEach((a) => {
-      // a = a.filter((entry) => entry["姓名"] !== "叶哲廷");
       ddzg = a.filter((entry) => entry["类别"] === "大队主官");
       ddfzg = a.filter((entry) => entry["类别"] === "大队非主官");
       zhy = a.filter((entry) => entry["类别"] === "消防救援站指挥员");
@@ -167,7 +172,13 @@ const Draw = () => {
         </div>
       </div>
       <div className="result">
-        <NameList title="比武名单" names={names} />
+        {names.length > 0 && (
+          <NameList
+            title="比武名单"
+            names={names}
+            attributes={["单位", "序号", "类别", "姓名"]}
+          />
+        )}
       </div>
     </div>
   );

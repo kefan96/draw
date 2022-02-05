@@ -1,29 +1,28 @@
 import React from "react";
+import "./NameList.css";
 
-const NameList = ({ title, names }) => {
+const NameList = ({ title, names, attributes }) => {
   return (
-    <div>
-      <h1>{title}</h1>
+    <div className="NameList">
+      <h3>{title}</h3>
       {names.length > 0 && (
         <>
-          <p>人数：{names.length}</p>
+          <p>总数：{names.length}</p>
           <table>
             <thead>
               <tr>
-                <th>单位</th>
-                <th>序号</th>
-                <th>类别</th>
-                <th>姓名</th>
+                {attributes.map((a, i) => (
+                  <th key={i}>{a}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
               {names.map((name, id) => {
                 return (
                   <tr key={id}>
-                    <td>{name["单位"]}</td>
-                    <td>{name["序号"]}</td>
-                    <td>{name["类别"]}</td>
-                    <td>{name["姓名"]}</td>
+                    {attributes.map((a, i) => (
+                      <td key={i}>{name[a]}</td>
+                    ))}
                   </tr>
                 );
               })}
