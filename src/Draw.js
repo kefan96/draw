@@ -26,13 +26,9 @@ const Draw = () => {
         for (const sheet in workbook.Sheets) {
           if (workbook.Sheets.hasOwnProperty(sheet)) {
             // 利用 sheet_to_json 方法将 excel 转成 json 数据
-            data = data.concat(
-              XLSX.utils.sheet_to_json(workbook.Sheets[sheet])
-            );
-            // break; // 如果只取第一张表，就取消注释这行
+            data.push(XLSX.utils.sheet_to_json(workbook.Sheets[sheet]));
           }
         }
-        setNames(data);
         draw(workbook, data);
 
         file.target.value = "";
@@ -40,7 +36,7 @@ const Draw = () => {
         console.log(data);
       } catch (e) {
         // 这里可以抛出文件类型错误不正确的相关提示
-        console.log("文件类型不正确");
+        console.log("文件导入不正确");
         return;
       }
     };
@@ -61,7 +57,7 @@ const Draw = () => {
 
   function select(arr, rate) {
     return shuffleSwap([...arr])
-      .slice(0, Math.floor(arr.length * rate))
+      .slice(0, Math.round(arr.length * rate))
       .sort((a, b) => a["序号"] - b["序号"]);
   }
 
@@ -72,19 +68,27 @@ const Draw = () => {
   }
 
   const draw = (wb, arr) => {
-    arr = arr.filter((entry) => !entry["备注"] && entry["姓名"] !== "叶哲廷");
-    const ddzg = arr.filter((entry) => entry["类别"] === "大队主官");
-    const ddfzg = arr.filter((entry) => entry["类别"] === "大队非主官");
-    const zhy = arr.filter((entry) => entry["类别"] === "消防救援站指挥员");
-    const xfy = arr.filter((entry) => entry["类别"] === "消防员");
-    const zfzz = arr.filter((entry) => entry["类别"] === "政府专职消防队员");
-    const selected = [
-      ...select(ddzg, ddzgRate),
-      ...select(ddfzg, ddfzgRate),
-      ...select(zhy, zhyRate),
-      ...select(xfy, xfyRate),
-      ...select(zfzz, zfzzRate),
-    ];
+    let selected = [],
+      ddzg = [],
+      ddfzg = [],
+      zhy = [],
+      xfy = [],
+      zfzz = [];
+    arr.forEach((a) => {
+      // a = a.filter((entry) => entry["姓名"] !== "叶哲廷");
+      ddzg = a.filter((entry) => entry["类别"] === "大队主官");
+      ddfzg = a.filter((entry) => entry["类别"] === "大队非主官");
+      zhy = a.filter((entry) => entry["类别"] === "消防救援站指挥员");
+      xfy = a.filter((entry) => entry["类别"] === "消防员");
+      zfzz = a.filter((entry) => entry["类别"] === "政府专职消防队员");
+      selected = selected.concat([
+        ...select(ddzg, ddzgRate),
+        ...select(ddfzg, ddfzgRate),
+        ...select(zhy, zhyRate),
+        ...select(xfy, xfyRate),
+        ...select(zfzz, zfzzRate),
+      ]);
+    });
     setNames(selected);
     writeToExcel(wb, selected);
   };

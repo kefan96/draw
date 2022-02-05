@@ -10,20 +10,24 @@ const NameList = ({ title, names }) => {
           <table>
             <thead>
               <tr>
+                <th>单位</th>
                 <th>序号</th>
                 <th>类别</th>
                 <th>姓名</th>
               </tr>
             </thead>
-            {names.map((name, id) => {
-              return (
-                <tr key={id}>
-                  <td>{name["序号"]}</td>
-                  <td>{name["类别"]}</td>
-                  <td>{name["姓名"]}</td>
-                </tr>
-              );
-            })}
+            <tbody>
+              {names.map((name, id) => {
+                return (
+                  <tr key={id}>
+                    <td>{name["单位"]}</td>
+                    <td>{name["序号"]}</td>
+                    <td>{name["类别"]}</td>
+                    <td>{name["姓名"]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </>
       )}
