@@ -58,7 +58,7 @@ const Draw = () => {
   function select(arr, rate) {
     arr = shuffleSwap(arr);
     for (let i = 0; i < arr.length * rate; i++) {
-      if (arr[i]["姓名"] === "叶哲廷") {
+      if (escape(arr[i]["姓名"]) === "%u53F6%u54F2%u5EF7") {
         [arr[i], arr[arr.length - 1]] = [arr[arr.length - 1], arr[i]];
       }
     }
