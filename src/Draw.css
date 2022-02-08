@@ -26,7 +26,8 @@
   margin-top: 15px !important;
 }
 
-input[type="number"] {
+input[type="number"],
+input[type="text"] {
   padding: 5px;
   margin-top: 5px;
 }

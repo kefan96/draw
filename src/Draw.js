@@ -4,11 +4,10 @@ import NameList from "./NameList";
 import "./Draw.css";
 
 const Draw = () => {
-  const [ddzgRate, setDdzgRate] = useState(0);
-  const [ddfzgRate, setDdfzgRate] = useState(0);
+  const [ddldRate, setDdldRate] = useState(0);
+  const [zyjsRate, setZyjsRate] = useState(0);
   const [zhyRate, setZhyRate] = useState(0);
   const [xfyRate, setXfyRate] = useState(0);
-  const [zfzzRate, setZfzzRate] = useState(0);
   const [names, setNames] = useState([]);
 
   const onImportExcel = (file) => {
@@ -75,23 +74,22 @@ const Draw = () => {
 
   const draw = (wb, arr) => {
     let selected = [],
-      ddzg = [],
-      ddfzg = [],
+      ddld = [],
+      zyjs = [],
       zhy = [],
-      xfy = [],
-      zfzz = [];
+      xfy = [];
     arr.forEach((a) => {
-      ddzg = a.filter((entry) => entry["类别"] === "大队主官");
-      ddfzg = a.filter((entry) => entry["类别"] === "大队非主官");
+      ddld = a.filter((entry) => entry["类别"] === "大队领导");
+      zyjs = a.filter((entry) => entry["类别"] === "专业技术干部");
       zhy = a.filter((entry) => entry["类别"] === "消防救援站指挥员");
-      xfy = a.filter((entry) => entry["类别"] === "消防员");
-      zfzz = a.filter((entry) => entry["类别"] === "政府专职消防队员");
+      xfy = a.filter((entry) =>
+        ["消防员", "政府专职消防员"].includes(entry["类别"])
+      );
       selected = selected.concat([
-        ...select(ddzg, ddzgRate),
-        ...select(ddfzg, ddfzgRate),
+        ...select(ddld, 1 / ddld.length),
+        ...select(zyjs, zyjsRate),
         ...select(zhy, zhyRate),
         ...select(xfy, xfyRate),
-        ...select(zfzz, zfzzRate),
       ]);
     });
     setNames(selected);
@@ -104,25 +102,23 @@ const Draw = () => {
         <div className="rates">
           <h3>抽签概率设置</h3>
           <div className="form-control">
-            <label>大队主官</label>
+            <label>大队领导</label>
             <input
-              type="number"
-              min={0}
-              max={1}
-              step={0.01}
-              value={ddzgRate}
-              onChange={(e) => setDdzgRate(e.target.value)}
+              type="text"
+              disabled
+              value="抽取1人"
+              onChange={(e) => setDdldRate(e.target.value)}
             />
           </div>
           <div className="form-control">
-            <label>大队非主官</label>
+            <label>专业技术干部</label>
             <input
               type="number"
               min={0}
               max={1}
               step={0.01}
-              value={ddfzgRate}
-              onChange={(e) => setDdfzgRate(e.target.value)}
+              value={zyjsRate}
+              onChange={(e) => setZyjsRate(e.target.value)}
             />
           </div>
           <div className="form-control">
@@ -145,17 +141,6 @@ const Draw = () => {
               step={0.01}
               value={xfyRate}
               onChange={(e) => setXfyRate(e.target.value)}
-            />
-          </div>
-          <div className="form-control">
-            <label>政府专职消防队员</label>
-            <input
-              type="number"
-              min={0}
-              max={1}
-              step={0.01}
-              value={zfzzRate}
-              onChange={(e) => setZfzzRate(e.target.value)}
             />
           </div>
           <div className="form-control">
