@@ -122,7 +122,7 @@ const Draw = () => {
             />
           </div>
           <div className="form-control">
-            <label>消防救援站指挥员</label>
+            <label>消防站主官</label>
             <input
               type="number"
               min={0}
